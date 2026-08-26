@@ -1,0 +1,36 @@
+
+###2_config
+
+This file sets up 4 connections:
+//   1. Neo4j     → Graph Database (stores facts + relationships)
+//   2. Pinecone  → Vector Database (stores embeddings for similarity)
+//   3. Gemini LLM → Language Model (understands text, creates plans)
+//   4. Gemini Embeddings → Converts text to 768-dim vectors
+
+
+// =====================================================================
+// 1. NEO4J
+// ====================================================================
+// neo4j.driver() creates a connection pool (not single connection)
+// neo4j+s:// = Bolt protocol with TLS (required for Aura cloud)
+// ====================================================================
+
+
+// =====================================================================
+
+// 2. PINECONE
+// ====================================================================
+// Pinecone() = the client
+// pinecone.index() = points to one specific index (like a table)
+// ===================================================================
+
+// ====================================================================
+// 3. GEMINI LLM (via LangChain)
+// ====================================================================
+// Used for: entity extraction, query classification, planning, response
+// temperature: 0 = deterministic (same input → same output every time)
+// gemini-2.5-flash = fast, cheap, great for structured JSON output
+// ====================================================================
+// WHY gemini-2.5-flash?
+// Paid tier has high limits (1000+ RPM). No need for older models.
+// 2.5-flash = better quality + fast + cheap on paid tier.
